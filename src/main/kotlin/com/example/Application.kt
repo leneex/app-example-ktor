@@ -20,7 +20,10 @@ import org.slf4j.event.Level
 import java.util.concurrent.atomic.AtomicLong
 
 fun main() {
-    embeddedServer(Netty, port = 4000, host = "0.0.0.0", module = Application::module)
+    // Порт передаёт платформа в переменной PORT; без неё — 4000
+    val port = System.getenv("PORT")?.toIntOrNull() ?: 4000
+
+    embeddedServer(Netty, port = port, host = "0.0.0.0", module = Application::module)
         .start(wait = true)
 }
 
